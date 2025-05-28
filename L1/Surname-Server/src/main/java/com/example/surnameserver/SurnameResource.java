@@ -5,7 +5,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 
 @Path("/me")
-public class HelloResource {
+public class SurnameResource {
 
     @GET
     @Produces("text/plain")
