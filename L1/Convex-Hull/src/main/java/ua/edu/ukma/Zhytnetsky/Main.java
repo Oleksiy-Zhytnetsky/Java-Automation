@@ -4,6 +4,7 @@ import ua.edu.ukma.Zhytnetsky.libs.princeton.StdDraw;
 import ua.edu.ukma.Zhytnetsky.libs.princeton.StdIn;
 import ua.edu.ukma.Zhytnetsky.utils.DataConstants;
 import ua.edu.ukma.Zhytnetsky.utils.Point2D;
+import ua.edu.ukma.Zhytnetsky.utils.Point2DHeadless;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -14,6 +15,40 @@ import java.util.Stack;
 public final class Main {
 
     public static void main(String[] args) {
+        runHeadless();
+        // run();
+    }
+
+    private static void runHeadless() {
+        BufferedInputStream in;
+        try {
+            in = new BufferedInputStream(new FileInputStream(DataConstants.RS_1423));
+            System.setIn(in);
+        }
+        catch (FileNotFoundException ignored) {
+            System.exit(1);
+        }
+
+        final int pointCount = StdIn.readInt();
+        final Point2DHeadless[] points = new Point2DHeadless[pointCount];
+        int i = 0;
+        while (!StdIn.isEmpty()) {
+            final int x = StdIn.readInt();
+            final int y = StdIn.readInt();
+            points[i++] = new Point2DHeadless(x, y);
+        }
+
+        final Point2DHeadless minPoint = points[minPointByY(points)];
+        Arrays.sort(points, minPoint.POLAR_ORDER);
+
+        final Stack<Point2DHeadless> convexHullPoints = convexHull(points);
+        for (int j = 0; j < convexHullPoints.size(); j++) {
+            final int nextIdx = (j == convexHullPoints.size() - 1) ? 0 : j + 1;
+            System.out.println("Line: " + convexHullPoints.get(j) + " -> " + convexHullPoints.get(nextIdx));
+        }
+    }
+
+    private static void run() {
         StdDraw.setXscale(0, 32768);
         StdDraw.setYscale(0, 32768);
         StdDraw.setPenRadius(POINT_RADIUS);
@@ -60,6 +95,17 @@ public final class Main {
         return currentMin;
     }
 
+    private static int minPointByY(final Point2DHeadless[] points) {
+        if (points.length == 0) {
+            throw new IllegalArgumentException("ERROR: No points given as inputs");
+        }
+        int currentMin = 0;
+        for (int i = 1; i < points.length; i++) {
+            if (points[i].compareTo(points[currentMin]) < 0) currentMin = i;
+        }
+        return currentMin;
+    }
+
     private static Stack<Point2D> convexHull(final Point2D[] points) {
         if (points.length < 3) {
             throw new IllegalArgumentException("ERROR: Not enough points to form the convex hull");
@@ -76,6 +122,24 @@ public final class Main {
             }
             result.push(points[i]);
             points[i].draw();
+        }
+
+        return result;
+    }
+
+    private static Stack<Point2DHeadless> convexHull(final Point2DHeadless[] points) {
+        if (points.length < 3) {
+            throw new IllegalArgumentException("ERROR: Not enough points to form the convex hull");
+        }
+        final Stack<Point2DHeadless> result = new Stack<>();
+        result.push(points[0]);
+        result.push(points[1]);
+
+        for (int i = 2; i < points.length; i++) {
+            while (result.size() > 1 && Point2DHeadless.ccw(result.get(result.size() - 2), result.peek(), points[i]) <= 0) {
+                result.pop();
+            }
+            result.push(points[i]);
         }
 
         return result;
