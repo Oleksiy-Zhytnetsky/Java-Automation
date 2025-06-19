@@ -2,10 +2,14 @@ package ua.edu.ukma.Zhytnetsky.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import ua.edu.ukma.Zhytnetsky.annotations.GenerateBuilder;
+import ua.edu.ukma.Zhytnetsky.annotations.GenerateFieldConstants;
 import ua.edu.ukma.Zhytnetsky.annotations.InRange;
 
 @Data
 @AllArgsConstructor
+@GenerateBuilder
+@GenerateFieldConstants
 public final class Course {
 
     private String title;

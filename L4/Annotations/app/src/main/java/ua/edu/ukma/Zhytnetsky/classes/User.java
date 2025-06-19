@@ -3,12 +3,16 @@ package ua.edu.ukma.Zhytnetsky.classes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import ua.edu.ukma.Zhytnetsky.annotations.Email;
+import ua.edu.ukma.Zhytnetsky.annotations.GenerateBuilder;
+import ua.edu.ukma.Zhytnetsky.annotations.GenerateFieldConstants;
 import ua.edu.ukma.Zhytnetsky.annotations.InRange;
 
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@GenerateBuilder
+@GenerateFieldConstants
 public final class User {
 
     private String name;

@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    implementation("com.palantir.javapoet:javapoet:0.7.0")
+
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
