@@ -9,6 +9,7 @@ on:
     branches: [ master ]
     paths:
         - 'L6/CI-CD/**'
+  workflow_dispatch:
 
 jobs:
   build-and-analyze:
