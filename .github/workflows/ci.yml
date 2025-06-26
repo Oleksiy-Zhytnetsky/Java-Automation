@@ -28,6 +28,9 @@ jobs:
         with:
           distribution: corretto
           java-version: 21
+          
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
 
       - name: Cache Gradle wrapper and dependencies
         uses: actions/cache@v3
