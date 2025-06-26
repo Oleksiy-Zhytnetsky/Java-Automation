@@ -3,12 +3,21 @@ name: CI/CD
 on:
   push:
     branches: [ master ]
+    paths:
+        - 'L6/CI-CD/**'
   pull_request:
     branches: [ master ]
+    paths:
+        - 'L6/CI-CD/**'
 
 jobs:
   build-and-analyze:
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: CI-CD
+    
     steps:
       - name: Check out code
         uses: actions/checkout@v4
