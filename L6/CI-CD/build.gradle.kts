@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    checkstyle
 }
 
 group = "ua.edu.ukma.Zhytnetsky"
@@ -18,8 +19,17 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
+checkstyle {
+    toolVersion = "10.12.4"
+    configDirectory.set(file("config/checkstyle"))
+}
+
 tasks.test {
     useJUnitPlatform {
         // excludeTags("fast")
     }
+}
+
+tasks.check {
+    dependsOn("checkstyleMain", "checkstyleTest")
 }

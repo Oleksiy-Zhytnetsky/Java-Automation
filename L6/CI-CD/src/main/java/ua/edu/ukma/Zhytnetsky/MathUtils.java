@@ -2,7 +2,8 @@ package ua.edu.ukma.Zhytnetsky;
 
 public final class MathUtils {
 
-    private MathUtils() {}
+    private MathUtils() {
+    }
 
     public static Integer add(final Integer first, final Integer second) {
         return first + second;

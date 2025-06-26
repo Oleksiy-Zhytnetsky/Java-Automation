@@ -7,7 +7,8 @@ import java.lang.reflect.Method;
 
 public final class DisplayUtils {
 
-    private DisplayUtils() {}
+    private DisplayUtils() {
+    }
 
     public static char mapOperationToSign(final Operation<?> op) {
         return mapOperationNameToSign(extractOperationName(op));
@@ -18,7 +19,7 @@ public final class DisplayUtils {
         final Method writeReplace = op.getClass().getDeclaredMethod("writeReplace");
         writeReplace.setAccessible(true);
 
-        final SerializedLambda lambda = (SerializedLambda)writeReplace.invoke(op);
+        final SerializedLambda lambda = (SerializedLambda) writeReplace.invoke(op);
         return lambda.getImplMethodName();
     }
 
