@@ -3,12 +3,8 @@ name: CI/CD
 on:
   push:
     branches: [ master ]
-    paths:
-        - 'L6/CI-CD/**'
   pull_request:
     branches: [ master ]
-    paths:
-        - 'L6/CI-CD/**'
   workflow_dispatch:
 
 jobs:
